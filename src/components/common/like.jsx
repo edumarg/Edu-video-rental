@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 
 class Like extends Component {
-  state = {};
   render() {
-    const { myElement, onLike } = this.props;
+    const { like, onClick } = this.props;
+    let iconClass = "fa fa-heart";
+    if (!like) iconClass += "-o";
     return (
-      <div onClick={() => onLike(myElement)}>
-        {myElement.like && <i className="fa fa-heart" aria-hidden="true"></i>}
-        {!myElement.like && (
-          <i className="fa fa-heart-o" aria-hidden="true"></i>
-        )}
+      <div onClick={onClick}>
+        <i className={iconClass} aria-hidden="true"></i>
       </div>
     );
   }
