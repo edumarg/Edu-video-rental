@@ -15,17 +15,17 @@ class Movies extends Component {
     return (
       <React.Fragment>
         {this.state.movies.length === 0 && (
-          <p>There are no movies in the database</p>
-        )}
-        {this.state.movies.length > 0 && (
-          <p>
-            Showing {this.state.movies.length}{" "}
-            {this.state.movies.length === 1 && "movie"}
-            {this.state.movies.length > 1 && "movies"} in the database
-          </p>
+          <div>
+            <p>There are no movies in the database</p>
+          </div>
         )}
         {this.state.movies.length > 0 && (
           <div>
+            <p>
+              Showing {this.state.movies.length}{" "}
+              {this.state.movies.length === 1 && "movie"}
+              {this.state.movies.length > 1 && "movies"} in the database
+            </p>
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
