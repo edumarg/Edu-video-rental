@@ -7,7 +7,11 @@ class Like extends Component {
     if (!like) iconClass += "-o";
     return (
       <div onClick={onClick}>
-        <i className={iconClass} aria-hidden="true"></i>
+        <i
+          className={iconClass}
+          style={{ cursor: "pointer" }}
+          aria-hidden="true"
+        ></i>
       </div>
     );
   }

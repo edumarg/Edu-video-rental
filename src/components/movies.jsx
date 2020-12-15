@@ -16,8 +16,7 @@ class Movies extends Component {
     const myMovies = [...this.state.movies];
     const index = myMovies.indexOf(movie);
     const myMovie = { ...movie };
-    if (myMovie.like) myMovie.like = false;
-    else if (!myMovie.like) myMovie.like = true;
+    myMovie.like = !myMovie.like;
     myMovies[index] = myMovie;
     this.setState({ movies: myMovies });
   }
