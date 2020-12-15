@@ -12,3 +12,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.bg{
+  width: 100%;
+  max-height: 125Vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -5000;
+}
+
+
+#img.source-image {
+  width: 100%;
+  max-height: 125Vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.my-table{
+  color:white;
+}
+
+footer{
+  color: white;
+}

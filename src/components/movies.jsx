@@ -26,18 +26,18 @@ class Movies extends Component {
       <React.Fragment>
         {this.state.movies.length === 0 && (
           <div>
-            <p>There are no movies in the database</p>
+            <p className="my-table">There are no movies in the database</p>
           </div>
         )}
         {this.state.movies.length > 0 && (
           <div>
-            <p>
+            <p className="my-table">
               Showing {this.state.movies.length}{" "}
               {this.state.movies.length === 1 && "movie"}
               {this.state.movies.length > 1 && "movies"} in the database
             </p>
-            <table className="table table-striped table-hover">
-              <thead>
+            <table className="table">
+              <thead className="my-table">
                 <tr>
                   <th scope="col">Title</th>
                   <th scope="col">Genre</th>
@@ -47,7 +47,7 @@ class Movies extends Component {
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="my-table">
                 {this.state.movies.map((movie) => {
                   return (
                     <tr key={movie._id}>

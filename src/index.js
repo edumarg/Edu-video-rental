@@ -5,10 +5,18 @@ import Movies from "./components/movies";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
+import bg_img from "./img/background.jpg";
 
 ReactDOM.render(
   <React.StrictMode>
+    <img id="background-img" className="bg" src={bg_img} alt="bg_img"></img>
     <Movies />
+    <footer>
+      Background image Designed and provide by{" "}
+      <a href="http://www.freepik.com" target="_blank">
+        starline / Freepik
+      </a>
+    </footer>
   </React.StrictMode>,
   document.getElementById("root")
 );
