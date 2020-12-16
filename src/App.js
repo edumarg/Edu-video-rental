@@ -46,14 +46,15 @@ class App extends Component {
 
   render() {
     const { movies, currentPage, pageSize, genres, currentGenre } = this.state;
-    const count =
+    const moviesFiltered =
       currentGenre.toLowerCase() === "all"
-        ? movies.length
+        ? movies
         : movies.filter(
             (movie) =>
               movie["genre"]["name"].toLowerCase() ===
               currentGenre.toLowerCase()
-          ).length;
+          );
+    const count = moviesFiltered.length;
     return (
       <React.Fragment>
         <Background />
@@ -70,12 +71,11 @@ class App extends Component {
             </div>
             <div className="col-sm">
               <Movies
-                movies={movies}
+                movies={moviesFiltered}
                 onDelete={(movieId) => this.handleDelete(movieId)}
                 onLike={(movie) => this.handleLike(movie)}
                 currentPage={currentPage}
                 pageSize={pageSize}
-                currentGenre={currentGenre}
               />
               <PaginationBar
                 currentPage={currentPage}
