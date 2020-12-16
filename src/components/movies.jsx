@@ -14,7 +14,6 @@ class Movies extends Component {
       pageSize,
       currentGenre,
     } = this.props;
-    const count = movies.length;
     const moviesFiltered =
       currentGenre.toLowerCase() === "all"
         ? movies
@@ -23,6 +22,7 @@ class Movies extends Component {
               movie["genre"]["name"].toLowerCase() ===
               currentGenre.toLowerCase()
           );
+    const count = moviesFiltered.length;
     const moviesPaginate = paginate(moviesFiltered, currentPage, pageSize);
     return (
       <React.Fragment>

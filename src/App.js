@@ -46,7 +46,6 @@ class App extends Component {
 
   render() {
     const { movies, currentPage, pageSize, genres, currentGenre } = this.state;
-    // const count = movies.length;
     const count =
       currentGenre.toLowerCase() === "all"
         ? movies.length
