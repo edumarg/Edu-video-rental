@@ -11,7 +11,7 @@ class ListMenu extends Component {
     } = this.props;
     return (
       <div className="list-group">
-        <a
+        <button
           className={
             currentItem.toLowerCase() === "all"
               ? "list-group-item list-group-item-action active"
@@ -20,9 +20,9 @@ class ListMenu extends Component {
           onClick={() => onItemClick("All")}
         >
           All Genres
-        </a>
+        </button>
         {items.map((item) => (
-          <a
+          <button
             key={item[valueProperty]}
             className={
               item[textProperty] === currentItem
@@ -32,7 +32,7 @@ class ListMenu extends Component {
             onClick={() => onItemClick(item[textProperty])}
           >
             {item[textProperty]}
-          </a>
+          </button>
         ))}
       </div>
     );

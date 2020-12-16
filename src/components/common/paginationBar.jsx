@@ -18,13 +18,13 @@ class PaginationBar extends Component {
             <li
               className={currentPage === 1 ? "page-item disabled" : "page-item"}
             >
-              <a
+              <button
                 className="page-link"
                 aria-label="Previous"
                 onClick={() => onPageChange(currentPage - 1)}
               >
                 <span aria-hidden="true">&laquo;</span>
-              </a>
+              </button>
             </li>
             {pagesArray.map((page) => (
               <li
@@ -33,9 +33,12 @@ class PaginationBar extends Component {
                 }
                 key={`page${page}`}
               >
-                <a className="page-link" onClick={() => onPageChange(page)}>
+                <button
+                  className="page-link"
+                  onClick={() => onPageChange(page)}
+                >
                   {page}
-                </a>
+                </button>
               </li>
             ))}
             <li
@@ -45,13 +48,13 @@ class PaginationBar extends Component {
                   : "page-item"
               }
             >
-              <a
+              <button
                 className="page-link"
                 aria-label="Next"
                 onClick={() => onPageChange(currentPage + 1)}
               >
                 <span aria-hidden="true">&raquo;</span>
-              </a>
+              </button>
             </li>
           </ul>
         </nav>
