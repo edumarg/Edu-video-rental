@@ -7,16 +7,20 @@ import PaginationBar from "./components/common/paginationBar";
 import ListMenu from "./components/common/listMenu";
 import Footer from "./components/footer";
 import { getMovies, deleteMovie } from "./services/fakeMovieService";
-import { genres, getGenres } from "./services/fakeGenreService";
+import { getGenres } from "./services/fakeGenreService";
 
 class App extends Component {
   state = {
-    movies: getMovies(),
+    movies: [],
     currentPage: 1,
     pageSize: 8,
-    genres: getGenres(),
+    genres: [],
     currentGenre: "all",
   };
+
+  componentDidMount() {
+    this.setState({ movies: getMovies(), genres: getGenres() });
+  }
 
   handleDelete(movieId) {
     deleteMovie(movieId);
@@ -37,25 +41,35 @@ class App extends Component {
   }
 
   handleGenreSelect(genre) {
-    this.setState({ currentGenre: genre });
+    this.setState({ currentGenre: genre, currentPage: 1 });
   }
 
   render() {
     const { movies, currentPage, pageSize, genres, currentGenre } = this.state;
-    const count = movies.length;
+    // const count = movies.length;
+    const count =
+      currentGenre.toLowerCase() === "all"
+        ? movies.length
+        : movies.filter(
+            (movie) =>
+              movie["genre"]["name"].toLowerCase() ===
+              currentGenre.toLowerCase()
+          ).length;
     return (
       <React.Fragment>
         <Background />
         <div className="container">
           <div className="row">
-            <div className="col-sm-2">
+            <div className="col-sm-3">
               <ListMenu
-                genres={genres}
-                currentGenre={currentGenre}
-                onClick={(genre) => this.handleGenreSelect(genre)}
+                items={genres}
+                textProperty="name"
+                valueProperty="_id"
+                currentItem={currentGenre}
+                onItemClick={(genre) => this.handleGenreSelect(genre)}
               />
             </div>
-            <div className="col-sm-10">
+            <div className="col-sm">
               <Movies
                 movies={movies}
                 onDelete={(movieId) => this.handleDelete(movieId)}

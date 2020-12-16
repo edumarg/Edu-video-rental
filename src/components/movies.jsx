@@ -24,7 +24,6 @@ class Movies extends Component {
               currentGenre.toLowerCase()
           );
     const moviesPaginate = paginate(moviesFiltered, currentPage, pageSize);
-    console.log(moviesPaginate);
     return (
       <React.Fragment>
         {count === 0 && (
@@ -38,8 +37,8 @@ class Movies extends Component {
               Showing {count} {count === 1 && "movie"}
               {count > 1 && "movies"} in the database
             </p>
-            <table className="table">
-              <thead className="my-table">
+            <table className="table my-table">
+              <thead className="">
                 <tr>
                   <th scope="col">Title</th>
                   <th scope="col">Genre</th>
@@ -49,7 +48,7 @@ class Movies extends Component {
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody className="my-table">
+              <tbody className="">
                 {moviesPaginate.map((movie) => {
                   return (
                     <tr key={movie._id}>
