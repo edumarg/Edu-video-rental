@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class PaginagionBar extends Component {
+class PaginationBar extends Component {
   state = {};
   render() {
     return (
@@ -39,4 +39,4 @@ class PaginagionBar extends Component {
   }
 }
 
-export default PaginagionBar;
+export default PaginationBar;
