@@ -6,20 +6,35 @@ class Movies extends Component {
   state = {};
 
   render() {
-    const { movies, onDelete, onLike, currentPage, pageSize } = this.props;
+    const {
+      movies,
+      onDelete,
+      onLike,
+      currentPage,
+      pageSize,
+      currentGenre,
+    } = this.props;
     const count = movies.length;
-    const moviesPaginate = paginate(movies, currentPage, pageSize);
+    const moviesFiltered =
+      currentGenre.toLowerCase() === "all"
+        ? movies
+        : movies.filter(
+            (movie) =>
+              movie["genre"]["name"].toLowerCase() ===
+              currentGenre.toLowerCase()
+          );
+    const moviesPaginate = paginate(moviesFiltered, currentPage, pageSize);
     console.log(moviesPaginate);
     return (
       <React.Fragment>
         {count === 0 && (
           <div>
-            <p className="my-table">There are no movies in the database</p>
+            <p className="title">There are no movies in the database</p>
           </div>
         )}
         {count > 0 && (
           <div>
-            <p className="my-table">
+            <p className="title">
               Showing {count} {count === 1 && "movie"}
               {count > 1 && "movies"} in the database
             </p>

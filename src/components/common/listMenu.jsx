@@ -1,16 +1,34 @@
 import React, { Component } from "react";
 
 class ListMenu extends Component {
-  state = {};
   render() {
+    const { genres, currentGenre, onClick } = this.props;
     return (
-      <ul class="list-group">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Morbi leo risus</li>
-        <li class="list-group-item">Porta ac consectetur ac</li>
-        <li class="list-group-item">Vestibulum at eros</li>
-      </ul>
+      <div className="list-group">
+        <a
+          className={
+            currentGenre.toLowerCase() === "all"
+              ? "list-group-item list-group-item-action active"
+              : "list-group-item list-group-item-action "
+          }
+          onClick={() => onClick("All")}
+        >
+          All Genres
+        </a>
+        {genres.map((genre) => (
+          <a
+            key={genre.name}
+            className={
+              genre.name === currentGenre
+                ? "list-group-item active list-group-item-action"
+                : "list-group-item list-group-item-action"
+            }
+            onClick={() => onClick(genre.name)}
+          >
+            {genre.name}
+          </a>
+        ))}
+      </div>
     );
   }
 }

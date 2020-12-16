@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropType from "prop-types";
 
 class PaginationBar extends Component {
   state = {};
@@ -58,5 +59,12 @@ class PaginationBar extends Component {
     );
   }
 }
+
+PaginationBar.propTypes = {
+  currentPage: PropType.number.isRequired,
+  itemsCount: PropType.number.isRequired,
+  pageSize: PropType.number.isRequired,
+  onPageChange: PropType.func.isRequired,
+};
 
 export default PaginationBar;
