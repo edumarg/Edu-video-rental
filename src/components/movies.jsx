@@ -1,14 +1,23 @@
 import React, { Component } from "react";
 import Like from "./common/like";
-import paginate from "../utilities/paginate";
 
 class Movies extends Component {
-  state = {};
+  raiseSort(byElement) {
+    const mySortColumn = { ...this.props.sortColumn };
+    if (mySortColumn.sortBy === byElement) {
+      if (mySortColumn.sortOrder === "asc") mySortColumn.sortOrder = "desc";
+      else mySortColumn.sortOrder = "asc";
+    } else {
+      mySortColumn.sortBy = byElement;
+      mySortColumn.sortOrder = "asc";
+    }
+    this.props.onSort(mySortColumn);
+  }
 
   render() {
-    const { movies, onDelete, onLike, currentPage, pageSize } = this.props;
+    const { movies, onDelete, onLike } = this.props;
     const count = movies.length;
-    const moviesPaginate = paginate(movies, currentPage, pageSize);
+
     return (
       <React.Fragment>
         {count === 0 && (
@@ -25,16 +34,32 @@ class Movies extends Component {
             <table className="table my-table">
               <thead className="">
                 <tr>
-                  <th scope="col">Title</th>
-                  <th scope="col">Genre</th>
-                  <th scope="col">Stock Qty</th>
-                  <th scope="col">Rate $</th>
-                  <th scope="col"></th>
+                  <th scope="col" onClick={() => this.raiseSort("title")}>
+                    Title
+                  </th>
+                  <th scope="col" onClick={() => this.raiseSort("genre.name")}>
+                    Genre
+                  </th>
+                  <th
+                    scope="col"
+                    onClick={() => this.raiseSort("numberInStock")}
+                  >
+                    Stock Qty
+                  </th>
+                  <th
+                    scope="col"
+                    onClick={() => this.raiseSort("dailyRentalRate")}
+                  >
+                    Rate $
+                  </th>
+                  <th scope="col" onClick={() => this.raiseSort("like")}>
+                    Like
+                  </th>
                   <th scope="col"></th>
                 </tr>
               </thead>
               <tbody className="">
-                {moviesPaginate.map((movie) => {
+                {movies.map((movie) => {
                   return (
                     <tr key={movie._id}>
                       <td>{movie.title}</td>

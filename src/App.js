@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
+import _ from "lodash";
+
 import Background from "./components/background";
 import Movies from "./components/movies";
 import PaginationBar from "./components/common/paginationBar";
@@ -8,6 +10,7 @@ import ListMenu from "./components/common/listMenu";
 import Footer from "./components/footer";
 import { getMovies, deleteMovie } from "./services/fakeMovieService";
 import { getGenres } from "./services/fakeGenreService";
+import paginate from "./utilities/paginate";
 
 class App extends Component {
   state = {
@@ -16,6 +19,7 @@ class App extends Component {
     pageSize: 8,
     genres: [],
     currentGenre: "all",
+    sortColumn: { sortBy: "title", sortOrder: "asc" },
   };
 
   componentDidMount() {
@@ -44,8 +48,19 @@ class App extends Component {
     this.setState({ currentGenre: genre, currentPage: 1 });
   }
 
+  handleSort(mySortColumn) {
+    this.setState({ sortColumn: mySortColumn });
+  }
+
   render() {
-    const { movies, currentPage, pageSize, genres, currentGenre } = this.state;
+    const {
+      movies,
+      currentPage,
+      pageSize,
+      genres,
+      currentGenre,
+      sortColumn,
+    } = this.state;
     const moviesFiltered =
       currentGenre.toLowerCase() === "all"
         ? movies
@@ -54,6 +69,12 @@ class App extends Component {
               movie["genre"]["name"].toLowerCase() ===
               currentGenre.toLowerCase()
           );
+    const sortedMovies = _.orderBy(
+      moviesFiltered,
+      [sortColumn.sortBy],
+      [sortColumn.sortOrder]
+    );
+    const moviesPaginate = paginate(sortedMovies, currentPage, pageSize);
     const count = moviesFiltered.length;
     return (
       <React.Fragment>
@@ -71,11 +92,11 @@ class App extends Component {
             </div>
             <div className="col-sm">
               <Movies
-                movies={moviesFiltered}
+                movies={moviesPaginate}
+                sortColumn={sortColumn}
                 onDelete={(movieId) => this.handleDelete(movieId)}
                 onLike={(movie) => this.handleLike(movie)}
-                currentPage={currentPage}
-                pageSize={pageSize}
+                onSort={(byElement) => this.handleSort(byElement)}
               />
               <PaginationBar
                 currentPage={currentPage}

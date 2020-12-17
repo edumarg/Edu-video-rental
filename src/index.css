@@ -45,3 +45,7 @@ code {
 footer{
   color: white;
 }
+
+th:hover{
+  cursor: pointer;
+}
