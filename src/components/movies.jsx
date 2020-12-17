@@ -14,6 +14,14 @@ class Movies extends Component {
     this.props.onSort(mySortColumn);
   }
 
+  renderSortIcon(column) {
+    if (column !== this.props.sortColumn.sortBy)
+      return <i class="fa fa-sort" aria-hidden="true"></i>;
+    if (this.props.sortColumn.sortOrder === "asc")
+      return <i class="fa fa-sort-asc" aria-hidden="true"></i>;
+    return <i class="fa fa-sort-desc" aria-hidden="true"></i>;
+  }
+
   render() {
     const { movies, onDelete, onLike } = this.props;
     const count = movies.length;
@@ -35,25 +43,25 @@ class Movies extends Component {
               <thead className="">
                 <tr>
                   <th scope="col" onClick={() => this.raiseSort("title")}>
-                    Title
+                    Title {this.renderSortIcon("title")}
                   </th>
                   <th scope="col" onClick={() => this.raiseSort("genre.name")}>
-                    Genre
+                    Genre {this.renderSortIcon("genre.name")}
                   </th>
                   <th
                     scope="col"
                     onClick={() => this.raiseSort("numberInStock")}
                   >
-                    Stock Qty
+                    Stock Qty {this.renderSortIcon("numberInStock")}
                   </th>
                   <th
                     scope="col"
                     onClick={() => this.raiseSort("dailyRentalRate")}
                   >
-                    Rate $
+                    Rate $ {this.renderSortIcon("dailyRentalRate")}
                   </th>
                   <th scope="col" onClick={() => this.raiseSort("like")}>
-                    Like
+                    Like {this.renderSortIcon("like")}
                   </th>
                   <th scope="col"></th>
                 </tr>
