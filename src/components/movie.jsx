@@ -4,14 +4,17 @@ class Movie extends Component {
   state = {};
 
   handleOnSave() {
-    return;
+    this.props.history.replace("/movies");
   }
 
   render() {
     return (
-      <div>
-        <h2>Movie information for {}</h2>
-        <button className="btn btn-primary" onClick={() => this.handleOnSave()}>
+      <div className="m-4">
+        <h2 className="title">Movie form {this.props.match.params.id}</h2>
+        <button
+          className="btn btn-primary my-3"
+          onClick={() => this.handleOnSave()}
+        >
           Save
         </button>
       </div>

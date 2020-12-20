@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import Like from "./common/like";
 
 class Movies extends Component {
@@ -80,11 +82,13 @@ class Movies extends Component {
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody className="">
+              <tbody className="movies-table">
                 {movies.map((movie) => {
                   return (
                     <tr key={movie._id}>
-                      <td>{movie.title}</td>
+                      <td>
+                        <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
+                      </td>
                       <td>{movie["genre"]["name"]}</td>
                       <td>{movie.numberInStock}</td>
                       <td>{movie.dailyRentalRate}</td>

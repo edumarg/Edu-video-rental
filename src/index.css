@@ -21,6 +21,10 @@ code {
   color: white;
 }
 
+.movies-table {
+  color: blue;
+}
+
 .not-found {
   color: red;
   margin: 2rem 2rem;

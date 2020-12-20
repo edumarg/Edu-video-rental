@@ -85,7 +85,7 @@ class App extends Component {
         <NavBar />
         <Background />
         <Switch>
-          <Route path="/movies/:id" render={Movie} />
+          <Route path="/movies/:id" render={(props) => <Movie {...props} />} />
           <Route
             path="/movies"
             render={(props) => (
