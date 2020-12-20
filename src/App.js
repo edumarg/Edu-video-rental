@@ -1,17 +1,20 @@
 import React, { Component } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 import _ from "lodash";
 
 import NavBar from "./components/navBar";
 import Background from "./components/background";
-import Movies from "./components/movies";
-import PaginationBar from "./components/common/paginationBar";
-import ListMenu from "./components/common/listMenu";
+import Main from "./components/main";
+import Customers from "./components/customers";
+import Rentals from "./components/rentals";
 import Footer from "./components/footer";
+import Movie from "./components/movie";
 import { getMovies, deleteMovie } from "./services/fakeMovieService";
 import { getGenres } from "./services/fakeGenreService";
 import paginate from "./utilities/paginate";
+import NotFound from "./components/notFound";
 
 class App extends Component {
   state = {
@@ -81,34 +84,36 @@ class App extends Component {
       <React.Fragment>
         <NavBar />
         <Background />
-        <div className="container">
-          <div className="row mt-3">
-            <div className="col-sm-3">
-              <ListMenu
-                items={genres}
-                textProperty="name"
-                valueProperty="_id"
-                currentItem={currentGenre}
-                onItemClick={(genre) => this.handleGenreSelect(genre)}
-              />
-            </div>
-            <div className="col-sm">
-              <Movies
+        <Switch>
+          <Route path="/movies/:id" render={Movie} />
+          <Route
+            path="/movies"
+            render={(props) => (
+              <Main
                 movies={moviesPaginate}
+                currentPage={currentPage}
+                pageSize={pageSize}
+                genres={genres}
+                currentGenre={currentGenre}
                 sortColumn={sortColumn}
+                count={count}
+                onGenreSelect={(genre) => this.handleGenreSelect(genre)}
                 onDelete={(movieId) => this.handleDelete(movieId)}
                 onLike={(movie) => this.handleLike(movie)}
                 onSort={(byElement) => this.handleSort(byElement)}
-              />
-              <PaginationBar
-                currentPage={currentPage}
-                itemsCount={count}
-                pageSize={pageSize}
                 onPageChange={(page) => this.handlePagination(page)}
+                {...props}
               />
-            </div>
-          </div>
-        </div>
+            )}
+          />
+          <Route
+            path="/customers"
+            render={(props) => <Customers {...props} />}
+          />
+          <Route path="/rentals" render={(props) => <Rentals {...props} />} />
+          <Route path="/not-found" component={NotFound} />
+          <Redirect to="/not-found" />
+        </Switch>
         <Footer />
       </React.Fragment>
     );

@@ -30,15 +30,15 @@ class Movies extends Component {
       <React.Fragment>
         {count === 0 && (
           <div>
-            <p className="title">There are no movies in the database</p>
+            <h2 className="title">There are no movies in the database</h2>
           </div>
         )}
         {count > 0 && (
           <div>
-            <p className="title">
+            <h2 className="title">
               Showing {count} {count === 1 && "movie"}
               {count > 1 && "movies"} in the database
-            </p>
+            </h2>
             <table className="table my-table">
               <thead className="">
                 <tr>
