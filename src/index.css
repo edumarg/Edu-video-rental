@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 1.25rem 2rem;
+  /* padding: 1.25rem 2rem; */
 }
 
 code {
@@ -46,6 +46,6 @@ footer{
   color: white;
 }
 
-th:hover{
+.clickable{
   cursor: pointer;
 }

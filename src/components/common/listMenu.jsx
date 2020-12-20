@@ -14,8 +14,8 @@ class ListMenu extends Component {
         <button
           className={
             currentItem.toLowerCase() === "all"
-              ? "list-group-item list-group-item-action active"
-              : "list-group-item list-group-item-action "
+              ? "list-group-item list-group-item-dark list-group-item-action active"
+              : "list-group-item list-group-item-dark list-group-item-action "
           }
           onClick={() => onItemClick("All")}
         >
@@ -26,8 +26,8 @@ class ListMenu extends Component {
             key={item[valueProperty]}
             className={
               item[textProperty] === currentItem
-                ? "list-group-item active list-group-item-action"
-                : "list-group-item list-group-item-action"
+                ? "list-group-item list-group-item-dark active list-group-item-action"
+                : "list-group-item  list-group-item-dark list-group-item-action"
             }
             onClick={() => onItemClick(item[textProperty])}
           >

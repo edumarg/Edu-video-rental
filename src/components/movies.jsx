@@ -42,25 +42,39 @@ class Movies extends Component {
             <table className="table my-table">
               <thead className="">
                 <tr>
-                  <th scope="col" onClick={() => this.raiseSort("title")}>
+                  <th
+                    className="clickable"
+                    scope="col"
+                    onClick={() => this.raiseSort("title")}
+                  >
                     Title {this.renderSortIcon("title")}
                   </th>
-                  <th scope="col" onClick={() => this.raiseSort("genre.name")}>
+                  <th
+                    className="clickable"
+                    scope="col"
+                    onClick={() => this.raiseSort("genre.name")}
+                  >
                     Genre {this.renderSortIcon("genre.name")}
                   </th>
                   <th
+                    className="clickable"
                     scope="col"
                     onClick={() => this.raiseSort("numberInStock")}
                   >
                     Stock Qty {this.renderSortIcon("numberInStock")}
                   </th>
                   <th
+                    className="clickable"
                     scope="col"
                     onClick={() => this.raiseSort("dailyRentalRate")}
                   >
                     Rate $ {this.renderSortIcon("dailyRentalRate")}
                   </th>
-                  <th scope="col" onClick={() => this.raiseSort("like")}>
+                  <th
+                    className="clickable"
+                    scope="col"
+                    onClick={() => this.raiseSort("like")}
+                  >
                     Like {this.renderSortIcon("like")}
                   </th>
                   <th scope="col"></th>

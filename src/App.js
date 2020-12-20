@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 import _ from "lodash";
 
+import NavBar from "./components/navBar";
 import Background from "./components/background";
 import Movies from "./components/movies";
 import PaginationBar from "./components/common/paginationBar";
@@ -78,9 +79,10 @@ class App extends Component {
     const count = moviesFiltered.length;
     return (
       <React.Fragment>
+        <NavBar />
         <Background />
         <div className="container">
-          <div className="row">
+          <div className="row mt-3">
             <div className="col-sm-3">
               <ListMenu
                 items={genres}
