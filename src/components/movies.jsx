@@ -18,10 +18,10 @@ class Movies extends Component {
 
   renderSortIcon(column) {
     if (column !== this.props.sortColumn.sortBy)
-      return <i class="fa fa-sort" aria-hidden="true"></i>;
+      return <i className="fa fa-sort" aria-hidden="true"></i>;
     if (this.props.sortColumn.sortOrder === "asc")
-      return <i class="fa fa-sort-asc" aria-hidden="true"></i>;
-    return <i class="fa fa-sort-desc" aria-hidden="true"></i>;
+      return <i className="fa fa-sort-asc" aria-hidden="true"></i>;
+    return <i className="fa fa-sort-desc" aria-hidden="true"></i>;
   }
 
   render() {

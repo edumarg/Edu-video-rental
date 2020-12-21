@@ -4,8 +4,8 @@ class Rentals extends Component {
   state = {};
   render() {
     return (
-      <div className="m-4 component-div">
-        <h1 className="title mx-4">Rentals {}</h1>
+      <div className="component-div">
+        <h1 className="title">Rentals {}</h1>
       </div>
     );
   }

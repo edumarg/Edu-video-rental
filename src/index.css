@@ -59,8 +59,19 @@ footer {
 
 .component-div {
   min-height: 115vh;
+  width: 80%;
+  margin: 2rem auto;
 }
 
 .table-div {
   min-height: 100vh;
+}
+
+.my-input {
+  margin: auto;
+  width: 50%;
+}
+
+.centered {
+  text-align: center;
 }
