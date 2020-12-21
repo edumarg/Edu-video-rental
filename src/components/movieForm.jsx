@@ -9,7 +9,7 @@ class Movie extends Component {
 
   render() {
     return (
-      <div className="m-4">
+      <div className="m-4 component-div">
         <h2 className="title">Movie form {this.props.match.params.id}</h2>
         <button
           className="btn btn-primary my-3"

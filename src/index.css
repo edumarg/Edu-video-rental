@@ -5,7 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* padding: 1.25rem 2rem; */
 }
 
 code {
@@ -51,8 +50,17 @@ code {
 
 footer {
   color: white;
+  text-align: center;
 }
 
 .clickable {
   cursor: pointer;
+}
+
+.component-div {
+  min-height: 115vh;
+}
+
+.table-div {
+  min-height: 100vh;
 }

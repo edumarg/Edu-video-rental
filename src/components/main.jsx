@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import Movies from "../components/movies";
 import PaginationBar from "../components/common/paginationBar";
 import ListMenu from "../components/common/listMenu";
@@ -22,7 +23,7 @@ class Main extends Component {
     } = this.props;
     return (
       <React.Fragment>
-        <div className="container">
+        <div className="container component-div">
           <div className="row mt-3">
             <div className="col-sm-3">
               <ListMenu

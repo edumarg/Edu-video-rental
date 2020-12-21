@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.css";
-import "font-awesome/css/font-awesome.css";
 import _ from "lodash";
 
 import NavBar from "./components/navBar";
@@ -10,11 +8,14 @@ import Main from "./components/main";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
 import Footer from "./components/footer";
-import Movie from "./components/movie";
+import Movie from "./components/movieForm";
 import { getMovies, deleteMovie } from "./services/fakeMovieService";
 import { getGenres } from "./services/fakeGenreService";
 import paginate from "./utilities/paginate";
 import NotFound from "./components/notFound";
+
+import "bootstrap/dist/css/bootstrap.css";
+import "font-awesome/css/font-awesome.css";
 
 class App extends Component {
   state = {
@@ -112,6 +113,7 @@ class App extends Component {
           />
           <Route path="/rentals" render={(props) => <Rentals {...props} />} />
           <Route path="/not-found" component={NotFound} />
+          <Redirect from="/" to="/movies" />
           <Redirect to="/not-found" />
         </Switch>
         <Footer />

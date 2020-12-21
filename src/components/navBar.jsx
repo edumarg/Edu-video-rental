@@ -6,7 +6,7 @@ const NavBar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/movies">
-          Vidly
+          Edu's Movie Rental
         </NavLink>
         <button
           className="navbar-toggler"

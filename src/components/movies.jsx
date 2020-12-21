@@ -36,12 +36,12 @@ class Movies extends Component {
           </div>
         )}
         {count > 0 && (
-          <div>
+          <div className="table-div">
             <h2 className="title">
               Showing {count} {count === 1 && "movie"}
               {count > 1 && "movies"} in the database
             </h2>
-            <table className="table my-table">
+            <table className="table">
               <thead className="">
                 <tr>
                   <th
