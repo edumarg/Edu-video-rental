@@ -13,6 +13,7 @@ import { getMovies, deleteMovie } from "./services/fakeMovieService";
 import { getGenres } from "./services/fakeGenreService";
 import paginate from "./utilities/paginate";
 import NotFound from "./components/notFound";
+import LoginForm from "./components/loginForm";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
@@ -112,6 +113,7 @@ class App extends Component {
             render={(props) => <Customers {...props} />}
           />
           <Route path="/rentals" render={(props) => <Rentals {...props} />} />
+          <Route path="/login" render={(props) => <LoginForm {...props} />} />
           <Route path="/not-found" component={NotFound} />
           <Redirect from="/" to="/movies" />
           <Redirect to="/not-found" />
