@@ -3,13 +3,16 @@ import Joi from "joi";
 
 import Form from "./common/form";
 
-class LoginForm extends Form {
+class RegisterForm extends Form {
   state = {
-    data: { username: "", password: "" },
+    data: {
+      username: "",
+      password: "",
+      name: "",
+    },
     errors: {},
   };
 
-  // from https://joi.dev/api/?v=17.3.0
   schema = Joi.object({
     username: Joi.string()
       .label("Username")
@@ -18,35 +21,34 @@ class LoginForm extends Form {
     password: Joi.string()
       .label("Password")
       .required()
-      .pattern(new RegExp("^(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{6,18}$"))
+      .pattern(new RegExp("^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?!.*s).{6,18}$"))
       .messages({
         "string.pattern.base":
           "Password must be between 6  and 18 characters and must include at least one upper case letter, one lower case letter, and one numeric digit.",
       }),
     // list of error from https://github.com/sideway/joi/blob/master/API.md#list-of-errors
+    name: Joi.string().label("Name").required().min(3).max(30),
   });
 
   doSumbit() {
-    console.log("login");
+    console.log("Register");
     this.props.history.replace("/movies");
   }
 
   render() {
     return (
       <div className="component-div">
-        <h1 className="title">Login</h1>
+        <h1 className="title">Register</h1>
 
-        <form
-          className="centered"
-          onSubmit={(event) => this.handleSumbmit(event)}
-        >
+        <form onSubmit={(event) => this.handleSumbmit(event)}>
           {this.renderInput("username", "Username")}
           {this.renderInput("password", "Password", "password")}
-          {this.renderButton("Login")}
+          {this.renderInput("name", "Name", "name")}
+          {this.renderButton("Register")}
         </form>
       </div>
     );
   }
 }
 
-export default LoginForm;
+export default RegisterForm;

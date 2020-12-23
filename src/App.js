@@ -14,6 +14,7 @@ import { getGenres } from "./services/fakeGenreService";
 import paginate from "./utilities/paginate";
 import NotFound from "./components/notFound";
 import LoginForm from "./components/loginForm";
+import RegisterForm from "./components/registerForm";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
@@ -114,6 +115,10 @@ class App extends Component {
           />
           <Route path="/rentals" render={(props) => <Rentals {...props} />} />
           <Route path="/login" render={(props) => <LoginForm {...props} />} />
+          <Route
+            path="/register"
+            render={(props) => <RegisterForm {...props} />}
+          />
           <Route path="/not-found" component={NotFound} />
           <Redirect from="/" to="/movies" />
           <Redirect to="/not-found" />
