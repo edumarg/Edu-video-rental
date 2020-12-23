@@ -1,7 +1,7 @@
 import React from "react";
 
 const FormInput = (props) => {
-  const { name, label, value, error, onChange } = props;
+  const { name, label, error, ...rest } = props;
 
   return (
     <div className="mb-3 my-input">
@@ -9,13 +9,11 @@ const FormInput = (props) => {
         {label}
       </label>
       <input
-        autoFocus
-        value={value}
-        type="text"
         className="form-control"
+        autoFocus
         id={name}
         name={name}
-        onChange={onChange}
+        {...rest}
       />
       {error && (
         <div className="alert alert-danger my-alert" role="alert">
