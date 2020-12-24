@@ -30,6 +30,11 @@ class Movies extends Component {
 
     return (
       <React.Fragment>
+        <div>
+          <Link to="/movies/new">
+            <button className="btn btn-primary">New Movie</button>
+          </Link>
+        </div>
         {count === 0 && (
           <div>
             <h2 className="title">There are no movies in the database</h2>

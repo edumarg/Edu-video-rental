@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import FormInput from "./formInput";
+import FormSelect from "./formSelect";
 
 class Form extends Component {
   state = {
@@ -71,6 +72,20 @@ class Form extends Component {
         value={data[name]}
         error={errors[name]}
         type={type}
+        onChange={(event) => this.handleChange(event)}
+      />
+    );
+  }
+
+  renderSelect(name, label, options) {
+    const { data, errors } = this.state;
+    return (
+      <FormSelect
+        name={name}
+        label={label}
+        value={data[name]}
+        error={errors[name]}
+        options={options}
         onChange={(event) => this.handleChange(event)}
       />
     );
