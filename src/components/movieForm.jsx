@@ -2,8 +2,8 @@ import React from "react";
 import Joi from "joi";
 
 import Form from "./common/form";
-
-import { getMovie } from "../services/fakeMovieService";
+import { getMovie, saveMovie } from "../services/fakeMovieService";
+import { getGenres } from "../services/fakeGenreService";
 class Movie extends Form {
   state = {
     data: {
@@ -22,8 +22,9 @@ class Movie extends Form {
       console.log("mymovie", myMovie);
       if (!myMovie) this.props.history.replace("/not-found");
       else {
-        const { title, genre, numberInStock, dailyRentalRate } = myMovie;
+        const { _id, title, genre, numberInStock, dailyRentalRate } = myMovie;
         const myData = { ...this.state.data };
+        myData._id = _id;
         myData.title = title;
         myData.genre = genre.name;
         myData.numberInStock = numberInStock;
@@ -34,6 +35,7 @@ class Movie extends Form {
   }
 
   schema = Joi.object({
+    _id: Joi.string(),
     title: Joi.string().label("Title").required(),
     genre: Joi.string().label("Genre").required(),
     numberInStock: Joi.number()
@@ -54,7 +56,28 @@ class Movie extends Form {
   });
 
   doSumbit() {
-    console.log("save movie");
+    const {
+      _id,
+      title,
+      genre,
+      numberInStock,
+      dailyRentalRate,
+    } = this.state.data;
+    const myMovie = { genre: {} };
+    myMovie._id = _id;
+    myMovie.title = title;
+    myMovie.numberInStock = numberInStock;
+    myMovie.dailyRentalRate = dailyRentalRate;
+    const movieGenres = getGenres();
+    for (let moviGenre of movieGenres) {
+      if (moviGenre.name.toLowerCase() === genre.toLowerCase()) {
+        myMovie.genre.name = genre;
+        myMovie.genre._id = moviGenre._id;
+      }
+    }
+
+    const savedMovie = saveMovie(myMovie);
+    console.log("saved movie", savedMovie);
     this.props.history.replace("/movies");
   }
 
