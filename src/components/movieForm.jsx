@@ -18,13 +18,18 @@ class Movie extends Form {
   componentDidMount() {
     const { id } = this.props.match.params;
     if (id) {
-      const { title, genre, numberInStock, dailyRentalRate } = getMovie(id);
-      const myData = { ...this.state.data };
-      myData.title = title;
-      myData.genre = genre.name;
-      myData.numberInStock = numberInStock;
-      myData.dailyRentalRate = dailyRentalRate;
-      this.setState({ data: myData });
+      const myMovie = getMovie(id);
+      console.log("mymovie", myMovie);
+      if (!myMovie) this.props.history.replace("/not-found");
+      else {
+        const { title, genre, numberInStock, dailyRentalRate } = myMovie;
+        const myData = { ...this.state.data };
+        myData.title = title;
+        myData.genre = genre.name;
+        myData.numberInStock = numberInStock;
+        myData.dailyRentalRate = dailyRentalRate;
+        this.setState({ data: myData });
+      }
     }
   }
 
