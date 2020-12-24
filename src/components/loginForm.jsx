@@ -34,7 +34,7 @@ class LoginForm extends Form {
   render() {
     return (
       <div className="component-div">
-        <h1 className="title">Login</h1>
+        <h1>Login</h1>
 
         <form
           className="centered"

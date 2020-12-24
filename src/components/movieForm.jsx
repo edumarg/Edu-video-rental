@@ -13,25 +13,31 @@ class Movie extends Form {
       dailyRentalRate: "",
     },
     errors: {},
+    genres: [],
   };
 
   componentDidMount() {
+    const { data, genres } = this.state;
+    const myGenres = [...genres];
+    const myData = { ...data };
+    const movieGenres = getGenres();
+    for (let moviGenre of movieGenres) {
+      myGenres.push(moviGenre.name);
+    }
+
     const { id } = this.props.match.params;
     if (id) {
       const myMovie = getMovie(id);
-      console.log("mymovie", myMovie);
-      if (!myMovie) this.props.history.replace("/not-found");
-      else {
-        const { _id, title, genre, numberInStock, dailyRentalRate } = myMovie;
-        const myData = { ...this.state.data };
-        myData._id = _id;
-        myData.title = title;
-        myData.genre = genre.name;
-        myData.numberInStock = numberInStock;
-        myData.dailyRentalRate = dailyRentalRate;
-        this.setState({ data: myData });
-      }
+      if (!myMovie) return this.props.history.replace("/not-found");
+
+      const { _id, title, genre, numberInStock, dailyRentalRate } = myMovie;
+      myData._id = _id;
+      myData.title = title;
+      myData.genre = genre.name;
+      myData.numberInStock = numberInStock;
+      myData.dailyRentalRate = dailyRentalRate;
     }
+    this.setState({ data: myData, genres: myGenres });
   }
 
   schema = Joi.object({
@@ -87,11 +93,7 @@ class Movie extends Form {
         <h2 className="title">Movie form {this.props.match.params.id}</h2>
         <form onSubmit={(event) => this.handleSumbmit(event)}>
           {this.renderInput("title", "Title")}
-          {this.renderSelect("genre", "Genre", [
-            "Action",
-            "Comedy",
-            "Thriller",
-          ])}
+          {this.renderSelect("genre", "Genre", this.state.genres)}
           {this.renderInput("numberInStock", "Number in Stock")}
           {this.renderInput("dailyRentalRate", "Rate")}
           {this.renderButton("Save")}

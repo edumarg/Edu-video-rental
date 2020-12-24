@@ -25,27 +25,35 @@ class Movies extends Component {
   }
 
   render() {
-    const { movies, onDelete, onLike } = this.props;
+    const { movies, searchQuery, onDelete, onLike, onSearch } = this.props;
     const count = movies.length;
 
     return (
       <React.Fragment>
         <div>
-          <Link to="/movies/new" className="btn btn-primary">
+          <Link to="/movies/new" className="btn btn-primary mb-3">
             New Movie
           </Link>
+          <input
+            className="form-control my-2"
+            type="search"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => onSearch(e.currentTarget.value)}
+          ></input>
         </div>
         {count === 0 && (
           <div>
-            <h2 className="title">There are no movies in the database</h2>
+            <h2>There are no movies in the database</h2>
           </div>
         )}
         {count > 0 && (
           <div className="table-div">
-            <h2 className="title">
+            <h2>
               Showing {count} {count === 1 && "movie"}
               {count > 1 && "movies"} in the database
             </h2>
+
             <table className="table">
               <thead className="">
                 <tr>

@@ -15,11 +15,13 @@ class Main extends Component {
       currentGenre,
       sortColumn,
       count,
+      searchQuery,
       onGenreSelect,
       onDelete,
       onLike,
       onSort,
       onPageChange,
+      onSearch,
     } = this.props;
     return (
       <React.Fragment>
@@ -38,9 +40,11 @@ class Main extends Component {
               <Movies
                 movies={movies}
                 sortColumn={sortColumn}
+                searchQuery={searchQuery}
                 onDelete={(movieId) => onDelete(movieId)}
                 onLike={(movie) => onLike(movie)}
                 onSort={(byElement) => onSort(byElement)}
+                onSearch={(query) => onSearch(query)}
               />
               <PaginationBar
                 currentPage={currentPage}

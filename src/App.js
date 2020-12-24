@@ -52,11 +52,15 @@ class App extends Component {
   }
 
   handleGenreSelect(genre) {
-    this.setState({ currentGenre: genre, currentPage: 1 });
+    this.setState({ currentGenre: genre, currentPage: 1, searchQuery: "" });
   }
 
   handleSort(mySortColumn) {
     this.setState({ sortColumn: mySortColumn });
+  }
+
+  handleSearch(query) {
+    this.setState({ currentGenre: "all", currentPage: 1, searchQuery: query });
   }
 
   render() {
@@ -67,15 +71,22 @@ class App extends Component {
       genres,
       currentGenre,
       sortColumn,
+      searchQuery,
     } = this.state;
-    const moviesFiltered =
-      currentGenre.toLowerCase() === "all"
-        ? movies
-        : movies.filter(
-            (movie) =>
-              movie["genre"]["name"].toLowerCase() ===
-              currentGenre.toLowerCase()
-          );
+    let moviesFiltered = movies;
+    if (searchQuery) {
+      moviesFiltered = movies.filter((movie) =>
+        movie.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    } else
+      moviesFiltered =
+        currentGenre.toLowerCase() === "all"
+          ? movies
+          : movies.filter(
+              (movie) =>
+                movie["genre"]["name"].toLowerCase() ===
+                currentGenre.toLowerCase()
+            );
     const sortedMovies = _.orderBy(
       moviesFiltered,
       [sortColumn.sortBy],
@@ -101,11 +112,13 @@ class App extends Component {
                 currentGenre={currentGenre}
                 sortColumn={sortColumn}
                 count={count}
+                searchQuery={searchQuery}
                 onGenreSelect={(genre) => this.handleGenreSelect(genre)}
                 onDelete={(movieId) => this.handleDelete(movieId)}
                 onLike={(movie) => this.handleLike(movie)}
                 onSort={(byElement) => this.handleSort(byElement)}
                 onPageChange={(page) => this.handlePagination(page)}
+                onSearch={(query) => this.handleSearch(query)}
                 {...props}
               />
             )}

@@ -5,7 +5,7 @@ class Rentals extends Component {
   render() {
     return (
       <div className="component-div">
-        <h1 className="title">Rentals {}</h1>
+        <h1>Rentals {}</h1>
       </div>
     );
   }

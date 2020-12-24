@@ -7,7 +7,7 @@ const FormSelect = (props) => {
       <label htmlFor={name} className="form-label">
         {label}
       </label>
-      <select className="form-select" id={name} name={name} {...rest}>
+      <select className="form-control" id={name} name={name} {...rest}>
         <option defaultValue>Select an option</option>
         {options.map((option) => (
           <option value={option} key={option}>
