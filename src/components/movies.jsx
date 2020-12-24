@@ -31,8 +31,8 @@ class Movies extends Component {
     return (
       <React.Fragment>
         <div>
-          <Link to="/movies/new">
-            <button className="btn btn-primary">New Movie</button>
+          <Link to="/movies/new" className="btn btn-primary">
+            New Movie
           </Link>
         </div>
         {count === 0 && (
