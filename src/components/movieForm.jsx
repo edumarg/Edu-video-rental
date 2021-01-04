@@ -2,8 +2,8 @@ import React from "react";
 import Joi from "joi";
 
 import Form from "./common/form";
-import { getMovie, saveMovie } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
+import { getMovie, saveMovie } from "../services/movieService";
+import { getGenres } from "../services/genreService";
 class Movie extends Form {
   state = {
     data: {
@@ -16,28 +16,41 @@ class Movie extends Form {
     genres: [],
   };
 
-  componentDidMount() {
+  mapToView(data) {
+    const myData = {};
+    const { _id, title, genre, numberInStock, dailyRentalRate } = data;
+    myData._id = _id;
+    myData.title = title;
+    myData.genre = genre.name;
+    myData.numberInStock = numberInStock;
+    myData.dailyRentalRate = dailyRentalRate;
+    return myData;
+  }
+
+  async componentDidMount() {
     const { data, genres } = this.state;
     const myGenres = [...genres];
-    const myData = { ...data };
-    const movieGenres = getGenres();
+    let myData = { ...data };
+    const response = await getGenres();
+    const movieGenres = response.data;
     for (let moviGenre of movieGenres) {
       myGenres.push(moviGenre.name);
     }
+    this.setState({ genres: myGenres });
 
     const { id } = this.props.match.params;
-    if (id) {
-      const myMovie = getMovie(id);
-      if (!myMovie) return this.props.history.replace("/not-found");
 
-      const { _id, title, genre, numberInStock, dailyRentalRate } = myMovie;
-      myData._id = _id;
-      myData.title = title;
-      myData.genre = genre.name;
-      myData.numberInStock = numberInStock;
-      myData.dailyRentalRate = dailyRentalRate;
+    if (id) {
+      try {
+        const response = await getMovie(id);
+        const myMovie = response.data;
+        myData = this.mapToView(myMovie);
+        this.setState({ data: myData });
+      } catch (exeption) {
+        if (exeption.response && exeption.response.status === 404)
+          return this.props.history.replace("/not-found");
+      }
     }
-    this.setState({ data: myData, genres: myGenres });
   }
 
   schema = Joi.object({

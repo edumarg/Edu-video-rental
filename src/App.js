@@ -46,7 +46,6 @@ class App extends Component {
     try {
       await deleteMovie(movieId);
     } catch (exeption) {
-      console.log("delete ex", exeption.response);
       if (exeption.response && exeption.response.status === 404) {
         toast.error("Movie not found");
         this.setState({ movies: orginalMovies });
