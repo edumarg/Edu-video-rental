@@ -10,7 +10,7 @@ import Rentals from "./components/rentals";
 import Footer from "./components/footer";
 import Movie from "./components/movieForm";
 import { getMovies, deleteMovie } from "./services/fakeMovieService";
-import { getGenres } from "./services/fakeGenreService";
+import { getGenres } from "./services/genreService";
 import paginate from "./utilities/paginate";
 import NotFound from "./components/notFound";
 import LoginForm from "./components/loginForm";
@@ -29,8 +29,10 @@ class App extends Component {
     sortColumn: { sortBy: "title", sortOrder: "asc" },
   };
 
-  componentDidMount() {
-    this.setState({ movies: getMovies(), genres: getGenres() });
+  async componentDidMount() {
+    const response = await getGenres();
+    const myGenres = response.data;
+    this.setState({ movies: getMovies(), genres: myGenres });
   }
 
   handleDelete(movieId) {
