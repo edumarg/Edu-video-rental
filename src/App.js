@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import _ from "lodash";
+import { toast, ToastContainer } from "react-toastify";
 
 import NavBar from "./components/navBar";
 import Background from "./components/background";
@@ -18,6 +19,7 @@ import RegisterForm from "./components/registerForm";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   state = {
@@ -38,9 +40,18 @@ class App extends Component {
   }
 
   async handleDelete(movieId) {
-    deleteMovie(movieId);
-    const myMovies = this.state.movies.filter((m) => m._id !== movieId);
+    const orginalMovies = [...this.state.movies];
+    const myMovies = orginalMovies.filter((m) => m._id !== movieId);
     this.setState({ movies: myMovies });
+    try {
+      await deleteMovie(movieId);
+    } catch (exeption) {
+      console.log("delete ex", exeption.response);
+      if (exeption.response && exeption.response.status === 404) {
+        toast.error("Movie not found");
+        this.setState({ movies: orginalMovies });
+      }
+    }
   }
 
   handleLike(movie) {
@@ -101,6 +112,7 @@ class App extends Component {
     const count = moviesFiltered.length;
     return (
       <React.Fragment>
+        <ToastContainer />
         <NavBar />
         <Background />
         <Switch>

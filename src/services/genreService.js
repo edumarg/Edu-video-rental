@@ -1,6 +1,6 @@
 import http from "./httpServices";
-const URL = "http://localhost:3900/api/genres";
+import { URL } from "../config.json";
 
 export function getGenres() {
-  return http.get(URL);
+  return http.get(`${URL}/genres`);
 }
