@@ -9,7 +9,7 @@ import Customers from "./components/customers";
 import Rentals from "./components/rentals";
 import Footer from "./components/footer";
 import Movie from "./components/movieForm";
-import { getMovies, deleteMovie } from "./services/fakeMovieService";
+import { getMovies, deleteMovie } from "./services/movieService";
 import { getGenres } from "./services/genreService";
 import paginate from "./utilities/paginate";
 import NotFound from "./components/notFound";
@@ -30,14 +30,17 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const response = await getGenres();
+    let response = await getGenres();
     const myGenres = response.data;
-    this.setState({ movies: getMovies(), genres: myGenres });
+    response = await getMovies();
+    const myMovies = response.data;
+    this.setState({ movies: myMovies, genres: myGenres });
   }
 
-  handleDelete(movieId) {
+  async handleDelete(movieId) {
     deleteMovie(movieId);
-    this.setState({ movies: getMovies() });
+    const myMovies = this.state.movies.filter((m) => m._id !== movieId);
+    this.setState({ movies: myMovies });
   }
 
   handleLike(movie) {
