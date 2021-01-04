@@ -10,8 +10,8 @@ const FormSelect = (props) => {
       <select className="form-control" id={name} name={name} {...rest}>
         <option defaultValue>Select an option</option>
         {options.map((option) => (
-          <option value={option} key={option}>
-            {option}
+          <option value={option._id} key={option._id}>
+            {option.name}
           </option>
         ))}
       </select>

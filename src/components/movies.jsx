@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import Like from "./common/like";
 
 class Movies extends Component {
+  componentDidMount() {
+    this.props.onLoad();
+  }
+
   raiseSort(byElement) {
     const mySortColumn = { ...this.props.sortColumn };
     if (mySortColumn.sortBy === byElement) {

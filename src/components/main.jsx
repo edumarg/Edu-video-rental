@@ -16,6 +16,7 @@ class Main extends Component {
       sortColumn,
       count,
       searchQuery,
+      OnLoad,
       onGenreSelect,
       onDelete,
       onLike,
@@ -45,6 +46,7 @@ class Main extends Component {
                 onLike={(movie) => onLike(movie)}
                 onSort={(byElement) => onSort(byElement)}
                 onSearch={(query) => onSearch(query)}
+                onLoad={() => OnLoad()}
               />
               <PaginationBar
                 currentPage={currentPage}

@@ -31,12 +31,21 @@ class App extends Component {
     sortColumn: { sortBy: "title", sortOrder: "asc" },
   };
 
-  async componentDidMount() {
+  async populateGenres() {
     let response = await getGenres();
     const myGenres = response.data;
-    response = await getMovies();
+    this.setState({ genres: myGenres });
+  }
+
+  async populateMovies() {
+    const response = await getMovies();
     const myMovies = response.data;
-    this.setState({ movies: myMovies, genres: myGenres });
+    this.setState({ movies: myMovies });
+  }
+
+  async componentDidMount() {
+    await this.populateGenres();
+    await this.populateMovies();
   }
 
   async handleDelete(movieId) {
@@ -129,6 +138,7 @@ class App extends Component {
                 sortColumn={sortColumn}
                 count={count}
                 searchQuery={searchQuery}
+                OnLoad={async () => await this.populateMovies()}
                 onGenreSelect={(genre) => this.handleGenreSelect(genre)}
                 onDelete={(movieId) => this.handleDelete(movieId)}
                 onLike={(movie) => this.handleLike(movie)}

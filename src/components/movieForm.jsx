@@ -8,7 +8,7 @@ class Movie extends Form {
   state = {
     data: {
       title: "",
-      genre: "",
+      genreId: "",
       numberInStock: "",
       dailyRentalRate: "",
     },
@@ -16,47 +16,47 @@ class Movie extends Form {
     genres: [],
   };
 
+  async populateGenres() {
+    const response = await getGenres();
+    const myGenres = response.data;
+    this.setState({ genres: myGenres });
+  }
+
   mapToView(data) {
     const myData = {};
     const { _id, title, genre, numberInStock, dailyRentalRate } = data;
     myData._id = _id;
     myData.title = title;
-    myData.genre = genre.name;
+    myData.genreId = genre._id;
     myData.numberInStock = numberInStock;
     myData.dailyRentalRate = dailyRentalRate;
     return myData;
   }
 
-  async componentDidMount() {
-    const { data, genres } = this.state;
-    const myGenres = [...genres];
-    let myData = { ...data };
-    const response = await getGenres();
-    const movieGenres = response.data;
-    for (let moviGenre of movieGenres) {
-      myGenres.push(moviGenre.name);
-    }
-    this.setState({ genres: myGenres });
-
-    const { id } = this.props.match.params;
-
-    if (id) {
-      try {
+  async populateMovie() {
+    try {
+      const { id } = this.props.match.params;
+      if (id) {
         const response = await getMovie(id);
         const myMovie = response.data;
-        myData = this.mapToView(myMovie);
+        const myData = this.mapToView(myMovie);
         this.setState({ data: myData });
-      } catch (exeption) {
-        if (exeption.response && exeption.response.status === 404)
-          return this.props.history.replace("/not-found");
       }
+    } catch (exeption) {
+      if (exeption.response && exeption.response.status === 404)
+        return this.props.history.replace("/not-found");
     }
+  }
+
+  async componentDidMount() {
+    await this.populateGenres();
+    await this.populateMovie();
   }
 
   schema = Joi.object({
     _id: Joi.string(),
-    title: Joi.string().label("Title").required(),
-    genre: Joi.string().label("Genre").required(),
+    title: Joi.string().label("Title").required().min(5),
+    genreId: Joi.string().label("Genre").required(),
     numberInStock: Joi.number()
       .label("Number in stock")
       .required()
@@ -74,29 +74,9 @@ class Movie extends Form {
     // list of error from https://github.com/sideway/joi/blob/master/API.md#list-of-errors
   });
 
-  doSumbit() {
-    const {
-      _id,
-      title,
-      genre,
-      numberInStock,
-      dailyRentalRate,
-    } = this.state.data;
-    const myMovie = { genre: {} };
-    myMovie._id = _id;
-    myMovie.title = title;
-    myMovie.numberInStock = numberInStock;
-    myMovie.dailyRentalRate = dailyRentalRate;
-    const movieGenres = getGenres();
-    for (let moviGenre of movieGenres) {
-      if (moviGenre.name.toLowerCase() === genre.toLowerCase()) {
-        myMovie.genre.name = genre;
-        myMovie.genre._id = moviGenre._id;
-      }
-    }
-
-    const savedMovie = saveMovie(myMovie);
-    console.log("saved movie", savedMovie);
+  async doSumbit() {
+    console.log("saved movie", this.state.data);
+    await saveMovie(this.state.data);
     this.props.history.replace("/movies");
   }
 
@@ -106,7 +86,7 @@ class Movie extends Form {
         <h2 className="title">Movie form {this.props.match.params.id}</h2>
         <form onSubmit={(event) => this.handleSumbmit(event)}>
           {this.renderInput("title", "Title")}
-          {this.renderSelect("genre", "Genre", this.state.genres)}
+          {this.renderSelect("genreId", "Genre", this.state.genres)}
           {this.renderInput("numberInStock", "Number in Stock")}
           {this.renderInput("dailyRentalRate", "Rate")}
           {this.renderButton("Save")}

@@ -16,5 +16,10 @@ export function deleteMovie(id) {
 }
 
 export function saveMovie(movie) {
-  return http.put(`${endPoint}/${movie._id}`, movie);
+  if (movie._id) {
+    const body = { ...movie };
+    delete body._id;
+    return http.put(`${endPoint}/${movie._id}`, body);
+  }
+  return http.post(endPoint, movie);
 }
