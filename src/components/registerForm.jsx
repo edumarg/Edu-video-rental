@@ -2,6 +2,8 @@ import React from "react";
 import Joi from "joi";
 
 import Form from "./common/form";
+import { register } from "../services/userService";
+import { toast } from "react-toastify";
 
 class RegisterForm extends Form {
   state = {
@@ -30,9 +32,19 @@ class RegisterForm extends Form {
     name: Joi.string().label("Name").required().min(3).max(30),
   });
 
-  doSumbit() {
-    console.log("Register");
-    this.props.history.replace("/movies");
+  async doSumbit() {
+    try {
+      await register(this.state.data);
+      this.props.history.replace("/movies");
+    } catch (exeption) {
+      if (exeption.response && exeption.response.status === 400) {
+        const myErrors = {
+          ...this.state.errors,
+        };
+        myErrors.username = exeption.response.data;
+        this.setState({ errors: myErrors });
+      }
+    }
   }
 
   render() {
