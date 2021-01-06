@@ -29,7 +29,14 @@ class Movies extends Component {
   }
 
   render() {
-    const { movies, searchQuery, onDelete, onLike, onSearch } = this.props;
+    const {
+      user,
+      movies,
+      searchQuery,
+      onDelete,
+      onLike,
+      onSearch,
+    } = this.props;
     const count = movies.length;
 
     return (
@@ -112,14 +119,16 @@ class Movies extends Component {
                       <td>
                         <Like like={movie.like} onClick={() => onLike(movie)} />
                       </td>
-                      <td>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => onDelete(movie._id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
+                      {user && (
+                        <td>
+                          <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => onDelete(movie._id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      )}
                     </tr>
                   );
                 })}

@@ -30,11 +30,8 @@ class LoginForm extends Form {
   async doSumbit() {
     console.log("login");
     try {
-      const response = await login(this.state.data);
-      const token = response.data;
-      console.log(token);
-      localStorage.setItem("token", token);
-      this.props.history.replace("/movies");
+      await login(this.state.data);
+      window.location = "/";
     } catch (exception) {
       if (exception.response && exception.response.status === 400) {
         const myErrors = {

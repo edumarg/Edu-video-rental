@@ -8,6 +8,7 @@ class Main extends Component {
   state = {};
   render() {
     const {
+      user,
       movies,
       currentPage,
       pageSize,
@@ -39,6 +40,7 @@ class Main extends Component {
             </div>
             <div className="col-sm">
               <Movies
+                user={user}
                 movies={movies}
                 sortColumn={sortColumn}
                 searchQuery={searchQuery}

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import _ from "lodash";
 import { toast, ToastContainer } from "react-toastify";
-import jwtDecode from "jwt-decode";
 
 import NavBar from "./components/navBar";
 import Background from "./components/background";
@@ -11,12 +10,14 @@ import Customers from "./components/customers";
 import Rentals from "./components/rentals";
 import Footer from "./components/footer";
 import Movie from "./components/movieForm";
-import { getMovies, deleteMovie } from "./services/movieService";
-import { getGenres } from "./services/genreService";
 import paginate from "./utilities/paginate";
 import NotFound from "./components/notFound";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
+import LogOut from "./components/logout";
+import { getMovies, deleteMovie } from "./services/movieService";
+import { getGenres } from "./services/genreService";
+import { getCurrentUser } from "./services/authService";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
@@ -30,7 +31,7 @@ class App extends Component {
     genres: [],
     currentGenre: "all",
     sortColumn: { sortBy: "title", sortOrder: "asc" },
-    user: {},
+    user: "",
   };
 
   async populateGenres() {
@@ -46,11 +47,8 @@ class App extends Component {
   }
 
   decodeJwt() {
-    try {
-      const token = localStorage.getItem("token");
-      const myUser = jwtDecode(token);
-      this.setState({ user: myUser });
-    } catch (exception) {}
+    const myUser = getCurrentUser();
+    this.setState({ user: myUser });
   }
 
   async componentDidMount() {
@@ -142,6 +140,7 @@ class App extends Component {
             path="/movies"
             render={(props) => (
               <Main
+                user={user}
                 movies={moviesPaginate}
                 currentPage={currentPage}
                 pageSize={pageSize}
@@ -167,6 +166,7 @@ class App extends Component {
           />
           <Route path="/rentals" render={(props) => <Rentals {...props} />} />
           <Route path="/login" render={(props) => <LoginForm {...props} />} />
+          <Route path="/logout" component={LogOut} />
           <Route
             path="/register"
             render={(props) => <RegisterForm {...props} />}

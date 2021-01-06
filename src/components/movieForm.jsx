@@ -75,9 +75,10 @@ class Movie extends Form {
   });
 
   async doSumbit() {
-    console.log("saved movie", this.state.data);
-    await saveMovie(this.state.data);
-    this.props.history.replace("/movies");
+    try {
+      await saveMovie(this.state.data);
+      this.props.history.replace("/movies");
+    } catch (exception) {}
   }
 
   render() {

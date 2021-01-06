@@ -3,6 +3,7 @@ import Joi from "joi";
 
 import Form from "./common/form";
 import { register } from "../services/userService";
+import { loginWithToken } from "../services/authService";
 
 class RegisterForm extends Form {
   state = {
@@ -35,8 +36,8 @@ class RegisterForm extends Form {
     try {
       const response = await register(this.state.data);
       const token = response.headers["x-auth-token"];
-      localStorage.setItem("token", token);
-      this.props.history.replace("/movies");
+      loginWithToken(token);
+      window.location = "/";
     } catch (exception) {
       if (exception.response && exception.response.status === 400) {
         const myErrors = {
