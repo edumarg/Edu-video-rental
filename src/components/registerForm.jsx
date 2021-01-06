@@ -3,7 +3,6 @@ import Joi from "joi";
 
 import Form from "./common/form";
 import { register } from "../services/userService";
-import { toast } from "react-toastify";
 
 class RegisterForm extends Form {
   state = {
@@ -34,14 +33,16 @@ class RegisterForm extends Form {
 
   async doSumbit() {
     try {
-      await register(this.state.data);
+      const response = await register(this.state.data);
+      const token = response.headers["x-auth-token"];
+      localStorage.setItem("token", token);
       this.props.history.replace("/movies");
-    } catch (exeption) {
-      if (exeption.response && exeption.response.status === 400) {
+    } catch (exception) {
+      if (exception.response && exception.response.status === 400) {
         const myErrors = {
           ...this.state.errors,
         };
-        myErrors.username = exeption.response.data;
+        myErrors.username = exception.response.data;
         this.setState({ errors: myErrors });
       }
     }

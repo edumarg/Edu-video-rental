@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import _ from "lodash";
 import { toast, ToastContainer } from "react-toastify";
+import jwtDecode from "jwt-decode";
 
 import NavBar from "./components/navBar";
 import Background from "./components/background";
@@ -29,6 +30,7 @@ class App extends Component {
     genres: [],
     currentGenre: "all",
     sortColumn: { sortBy: "title", sortOrder: "asc" },
+    user: {},
   };
 
   async populateGenres() {
@@ -43,9 +45,18 @@ class App extends Component {
     this.setState({ movies: myMovies });
   }
 
+  decodeJwt() {
+    try {
+      const token = localStorage.getItem("token");
+      const myUser = jwtDecode(token);
+      this.setState({ user: myUser });
+    } catch (exception) {}
+  }
+
   async componentDidMount() {
     await this.populateGenres();
     await this.populateMovies();
+    this.decodeJwt();
   }
 
   async handleDelete(movieId) {
@@ -96,6 +107,7 @@ class App extends Component {
       currentGenre,
       sortColumn,
       searchQuery,
+      user,
     } = this.state;
     let moviesFiltered = movies;
     if (searchQuery) {
@@ -121,7 +133,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar />
+        <NavBar user={user} />
         <Background />
         <Switch>
           <Route path="/movies/new" render={(props) => <Movie {...props} />} />

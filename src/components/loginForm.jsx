@@ -2,6 +2,7 @@ import React from "react";
 import Joi from "joi";
 
 import Form from "./common/form";
+import { login } from "../services/authService";
 
 class LoginForm extends Form {
   state = {
@@ -26,9 +27,23 @@ class LoginForm extends Form {
     // list of error from https://github.com/sideway/joi/blob/master/API.md#list-of-errors
   });
 
-  doSumbit() {
+  async doSumbit() {
     console.log("login");
-    this.props.history.replace("/movies");
+    try {
+      const response = await login(this.state.data);
+      const token = response.data;
+      console.log(token);
+      localStorage.setItem("token", token);
+      this.props.history.replace("/movies");
+    } catch (exception) {
+      if (exception.response && exception.response.status === 400) {
+        const myErrors = {
+          ...this.state.errors,
+        };
+        myErrors.username = exception.response.data;
+        this.setState({ errors: myErrors });
+      }
+    }
   }
 
   render() {
