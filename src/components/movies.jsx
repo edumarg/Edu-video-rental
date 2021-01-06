@@ -42,9 +42,11 @@ class Movies extends Component {
     return (
       <React.Fragment>
         <div>
-          <Link to="/movies/new" className="btn btn-primary mb-3">
-            New Movie
-          </Link>
+          {user && (
+            <Link to="/movies/new" className="btn btn-primary mb-3">
+              New Movie
+            </Link>
+          )}
           <input
             className="form-control my-2"
             type="search"
@@ -111,7 +113,10 @@ class Movies extends Component {
                   return (
                     <tr key={movie._id}>
                       <td>
-                        <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
+                        {(user && (
+                          <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
+                        )) ||
+                          movie.title}
                       </td>
                       <td>{movie["genre"]["name"]}</td>
                       <td>{movie.numberInStock}</td>

@@ -134,8 +134,20 @@ class App extends Component {
         <NavBar user={user} />
         <Background />
         <Switch>
-          <Route path="/movies/new" render={(props) => <Movie {...props} />} />
-          <Route path="/movies/:id" render={(props) => <Movie {...props} />} />
+          <Route
+            path="/movies/new"
+            render={(props) => {
+              if (!user) return <Redirect to="/login" />;
+              return <Movie {...props} />;
+            }}
+          />
+          <Route
+            path="/movies/:id"
+            render={(props) => {
+              if (!user) return <Redirect to="/login" />;
+              return <Movie {...props} />;
+            }}
+          />
           <Route
             path="/movies"
             render={(props) => (
