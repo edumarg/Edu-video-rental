@@ -1,8 +1,9 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import Joi from "joi";
 
 import Form from "./common/form";
-import { login } from "../services/authService";
+import { getCurrentUser, login } from "../services/authService";
 
 class LoginForm extends Form {
   state = {
@@ -31,7 +32,8 @@ class LoginForm extends Form {
     console.log("login");
     try {
       await login(this.state.data);
-      window.location = "/";
+      const { state } = this.props.location;
+      window.location = state ? state.from.pathname : "/";
     } catch (exception) {
       if (exception.response && exception.response.status === 400) {
         const myErrors = {
@@ -44,6 +46,7 @@ class LoginForm extends Form {
   }
 
   render() {
+    if (getCurrentUser()) return <Redirect to="/" />;
     return (
       <div className="component-div">
         <h1>Login</h1>

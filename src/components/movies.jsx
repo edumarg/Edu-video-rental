@@ -38,7 +38,6 @@ class Movies extends Component {
       onSearch,
     } = this.props;
     const count = movies.length;
-
     return (
       <React.Fragment>
         <div>
@@ -124,7 +123,7 @@ class Movies extends Component {
                       <td>
                         <Like like={movie.like} onClick={() => onLike(movie)} />
                       </td>
-                      {user && (
+                      {user && user.isAdmin && (
                         <td>
                           <button
                             className="btn btn-danger btn-sm"
