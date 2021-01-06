@@ -15,6 +15,7 @@ import NotFound from "./components/notFound";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import LogOut from "./components/logout";
+import ProtectedRoute from "./components/common/protectedRoute";
 import { getMovies, deleteMovie } from "./services/movieService";
 import { getGenres } from "./services/genreService";
 import { getCurrentUser } from "./services/authService";
@@ -134,20 +135,8 @@ class App extends Component {
         <NavBar user={user} />
         <Background />
         <Switch>
-          <Route
-            path="/movies/new"
-            render={(props) => {
-              if (!user) return <Redirect to="/login" />;
-              return <Movie {...props} />;
-            }}
-          />
-          <Route
-            path="/movies/:id"
-            render={(props) => {
-              if (!user) return <Redirect to="/login" />;
-              return <Movie {...props} />;
-            }}
-          />
+          <ProtectedRoute path="/movies/new" component={Movie} />
+          <ProtectedRoute path="/movies/:id" component={Movie} />
           <Route
             path="/movies"
             render={(props) => (
