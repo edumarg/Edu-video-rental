@@ -1,9 +1,8 @@
 import jwtDecode from "jwt-decode";
 
 import http from "./httpServices";
-import { URL } from "../config.json";
 
-const endPoint = `${URL}/auth`;
+const endPoint = `/auth`;
 const tokenKey = "token";
 
 export async function login(user) {

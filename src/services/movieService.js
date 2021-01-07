@@ -1,7 +1,6 @@
 import http from "./httpServices";
-import { URL } from "../config.json";
 
-const endPoint = `${URL}/movies`;
+const endPoint = `/movies`;
 
 export function getMovies() {
   return http.get(endPoint);
