@@ -4,7 +4,6 @@ import _ from "lodash";
 import { toast, ToastContainer } from "react-toastify";
 
 import NavBar from "./components/navBar";
-import Background from "./components/background";
 import Main from "./components/main";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
@@ -133,7 +132,6 @@ class App extends Component {
       <React.Fragment>
         <ToastContainer />
         <NavBar user={user} />
-        <Background />
         <Switch>
           <ProtectedRoute path="/movies/new" component={Movie} />
           <ProtectedRoute path="/movies/:id" component={Movie} />
