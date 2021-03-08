@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/common/protectedRoute";
 import { getMovies, deleteMovie } from "./services/movieService";
 import { getGenres } from "./services/genreService";
 import { getCurrentUser } from "./services/authService";
+import { getCustomers } from "./services/customersService";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
@@ -32,6 +33,7 @@ class App extends Component {
     currentGenre: "all",
     sortColumn: { sortBy: "title", sortOrder: "asc" },
     user: "",
+    customers: [],
   };
 
   async populateGenres() {
@@ -46,6 +48,12 @@ class App extends Component {
     this.setState({ movies: myMovies });
   }
 
+  async populateCustomers() {
+    const response = await getCustomers();
+    const myCustomers = response.data;
+    this.setState({ customers: myCustomers });
+  }
+
   decodeJwt() {
     const myUser = getCurrentUser();
     this.setState({ user: myUser });
@@ -54,6 +62,7 @@ class App extends Component {
   async componentDidMount() {
     await this.populateGenres();
     await this.populateMovies();
+    await this.populateCustomers();
     this.decodeJwt();
   }
 
@@ -106,6 +115,7 @@ class App extends Component {
       sortColumn,
       searchQuery,
       user,
+      customers,
     } = this.state;
     let moviesFiltered = movies;
     if (searchQuery) {
@@ -161,7 +171,7 @@ class App extends Component {
           />
           <Route
             path="/customers"
-            render={(props) => <Customers {...props} />}
+            render={(props) => <Customers customers={customers} {...props} />}
           />
           <Route path="/rentals" render={(props) => <Rentals {...props} />} />
           <Route path="/login" render={(props) => <LoginForm {...props} />} />
