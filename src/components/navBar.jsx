@@ -27,16 +27,20 @@ const NavBar = (props) => {
                 Movies
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/customers">
-                Customers
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/rentals">
-                Rentals
-              </NavLink>
-            </li>
+            {user && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/customers">
+                  Customers
+                </NavLink>
+              </li>
+            )}
+            {user && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/rentals">
+                  Rentals
+                </NavLink>
+              </li>
+            )}
             {!user && (
               <React.Fragment>
                 <li className="nav-item">

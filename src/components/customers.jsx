@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Customers extends Component {
   state = {};
   render() {
-    const { customers } = this.props;
+    const { customers, user } = this.props;
     const count = customers.length;
     return (
       <React.Fragment>
@@ -14,6 +15,13 @@ class Customers extends Component {
               <h2>No Customers found</h2>
             </div>
           )}
+          <div>
+            {user.isAdmin && (
+              <Link to="#" className="btn btn-primary mb-3">
+                New customer
+              </Link>
+            )}
+          </div>
           {count > 0 && (
             <div className="table-div">
               <table className="table">
