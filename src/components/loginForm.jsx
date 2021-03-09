@@ -20,7 +20,7 @@ class LoginForm extends Form {
     password: Joi.string()
       .label("Password")
       .required()
-      .pattern(new RegExp("^(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{6,18}$"))
+      .pattern(new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*s).{8,16}$"))
       .messages({
         "string.pattern.base":
           "Password must be between 6  and 18 characters and must include at least one upper case letter, one lower case letter, and one numeric digit.",
