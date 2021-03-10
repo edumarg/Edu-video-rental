@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 import http from "./httpServices";
 
 const endPoint = `/auth`;
-const tokenKey = "token";
+const tokenKey = "esternocleidomastoideo";
 
 export async function login(user) {
   const response = await http.post(endPoint, {
@@ -11,6 +11,7 @@ export async function login(user) {
     password: user.password,
   });
   const token = response.data;
+  console.log("received token", token);
   localStorage.setItem(tokenKey, token);
 }
 

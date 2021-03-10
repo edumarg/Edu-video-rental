@@ -23,10 +23,10 @@ class RegisterForm extends Form {
     password: Joi.string()
       .label("Password")
       .required()
-      .pattern(new RegExp("^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?!.*s).{6,18}$"))
+      .pattern(new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*s).{8,16}$"))
       .messages({
         "string.pattern.base":
-          "Password must be between 6  and 18 characters and must include at least one upper case letter, one lower case letter, and one numeric digit.",
+          "Password must be between 8  and 18 characters and must include at least one upper case letter, one lower case letter, and one numeric digit.",
       }),
     // list of error from https://github.com/sideway/joi/blob/master/API.md#list-of-errors
     name: Joi.string().label("Name").required().min(3).max(30),
