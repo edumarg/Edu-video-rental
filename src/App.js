@@ -119,8 +119,9 @@ class App extends Component {
     } = this.state;
     let moviesFiltered = movies;
     if (searchQuery) {
-      moviesFiltered = movies.filter((movie) =>
-        movie.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      moviesFiltered = movies.filter(
+        (movie) =>
+          movie.title.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1
       );
     } else
       moviesFiltered =
